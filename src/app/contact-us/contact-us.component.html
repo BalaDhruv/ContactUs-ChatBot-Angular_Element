@@ -1,0 +1,66 @@
+<div class="ce-cu-container" fxLayout="row" fxLayoutAlign="center ">
+  <div class="ce-cu" fxFlex="100" fxLayout="column">
+    <div class="ce-cu__title">
+      <h2>Contact Us</h2>
+      <p class="info-message">
+        ⚠️ Contact Us Bot in under development. Its a DEMO. But, You can play
+        with it. ⚠️
+      </p>
+    </div>
+
+    <div class="ce-cu__header" fxLayout="row" fxLayoutAlign=" center">
+      <div class="details">
+        <h3>Balamurugan Muthusamy</h3>
+        <p>Full Stack Developer</p>
+      </div>
+    </div>
+
+    <div class="ce-cu__body" fxFlex="100">
+      <div
+        *ngFor="let message of messages"
+        class="message-sec mine"
+        fxLayout="row"
+        [fxLayoutAlign]="message.isMine ? fxLeftAlign : fxRightAlign"
+      >
+        <img
+          *ngIf="message.isMine"
+          class="logo"
+          src="https://balamurugan.dev/assets/my-site-icon.svg"
+          alt="LOGO"
+        />
+        <div class="message">
+          <h6 class="name">{{ message.name }}</h6>
+          <p class="desc">{{ message.message }}</p>
+        </div>
+        <div
+          class="u-logo"
+          *ngIf="!message.isMine"
+          fxLayoutAlign="center center"
+        >
+          <p>U</p>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="showError" class="error">Please enter atleast 3 letters.</p>
+
+    <div class="ce-cu__footer" fxLayout="row">
+      <input
+        type="text"
+        [(ngModel)]="message"
+        [disabled]="disableWidget"
+        (keyup.enter)="onSendClick()"
+        fxFlex="grow"
+      />
+      <button
+        class="send-btn"
+        (click)="onSendClick()"
+        [disabled]="disableWidget"
+        (mouseover)="updateError(message.length < 4 ? true : false)"
+        (mouseout)="updateError(false)"
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</div>

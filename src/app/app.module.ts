@@ -1,16 +1,32 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { createCustomElement } from '@angular/elements';
 
-import { AppComponent } from './app.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    ContactUsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  entryComponents: [
+    ContactUsComponent
+  ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) { }
+
+  ngDoBootstrap(): void {
+    const el = createCustomElement(ContactUsComponent, { injector: this.injector });
+
+    customElements.define('ce-cu', el);
+  }
+}
